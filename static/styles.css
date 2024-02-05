@@ -1,9 +1,7 @@
 @import "https://www.nerdfonts.com/assets/css/webfont.css";
-@import "https://fonts.googleapis.com/css?family=Source Code Pro|Jost";
+@import "https://fonts.googleapis.com/css?family=Inconsolata|Julius Sans One";
 
 :root {
-  --menu-width: 11rem;
-
   --dark: rgba(7, 7, 7, 1);
   --light: rgba(244, 203, 164, 1);
   --red: rgba(146, 20, 12, 1);
@@ -65,23 +63,24 @@
   margin: 0;
   padding: 0;
 }
-.wrapper {
-  overflow-x: hidden;
-  position: relative;
-}
+
 body {
+  overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
-  font-family: Source Code Pro;
+  font-family: Inconsolata;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100vw;
+  justify-content: center;
 }
 
 main {
-  margin-right: var(--menu-width);
-  border-right: var(--foreground) 1px solid;
+  flex-grow: 2;
 }
 
 h1.bold {
-  font-family: Jost;
+  font-family: Julius Sans One;
   font-size: 2.25rem;
   font-weight: 600;
   line-height: normal;
@@ -90,7 +89,7 @@ h1.bold {
 h3,
 th {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: normal;
   line-height: normal;
 }
 
@@ -184,76 +183,13 @@ img {
   }
 }
 
-@keyframes gradientSlide {
-  0% {
-    transform: translate(0%, 0%);
-  }
-  100% {
-    transform: translate(0%, -10%);
-  }
-}
-
 .about__main {
-  max-width: 27rem;
-  padding: 10rem 10% 1rem 10%;
+  max-width: 400px;
+  margin: auto;
 }
 
-.gradients-1 {
-  position: absolute;
-  left: 30dvw;
-  top: 20dvh;
-  z-index: -1;
-}
-
-.gradient-1 {
-  position: absolute;
-  top: 0;
-  left: 10rem;
-
-  animation: 2s ease-in-out 0s infinite alternate gradientSlide;
-
-  width: 25rem;
-  height: 25rem;
-  border-radius: 25rem;
-  background: var(--gradient-1);
-  filter: blur(181px);
-}
-
-.gradient-2 {
-  position: absolute;
-  top: 10rem;
-  left: 0;
-
-  animation: 2s ease-in-out 2s infinite alternate gradientSlide;
-
-  width: 18.5rem;
-  height: 18.5rem;
-
-  border-radius: 18.5rem;
-  background: var(--gradient-2);
-  filter: blur(181px);
-}
-
-.gradient-3 {
-  position: absolute;
-  left: 37.5%;
-  top: 80%;
-
-  width: 17.5rem;
-  height: 17.5rem;
-
-  border-radius: 17.5rem;
-  background: var(--gradient-3);
-  filter: blur(181px);
-  z-index: -1;
-}
-
-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: var(--menu-width);
-  z-index: 10;
+.about__main h1 {
+  margin-bottom: 1rem;
 }
 
 .mode-toggle {
@@ -264,52 +200,32 @@ header {
   cursor: pointer;
 }
 
-@media screen and (max-width: 650px) {
-  :root {
-    --menu-width: 0;
-  }
-  .nav {
-    height: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .nav__menu {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: var(--background);
-    width: 100%;
-    height: 4rem;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    align-content: center;
-    border-top: 1px var(--foreground) solid;
-  }
-  .nav__item {
-    height: 100%;
-  }
-  .nav__name {
-    display: none;
-  }
-  .nav__icon,
-  #light-mode-toggle {
-    font-size: 1.5rem;
-  }
-
-  .nav__mode-toggle {
-    display: flex;
-    justify-content: center;
-  }
-  .nav__list {
-    justify-content: space-around;
-    align-content: center;
-  }
+.navbar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100dvh;
 }
 
-.nav__list,
-.nav__link {
+.navbar__nav {
+  padding: 0.8rem;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.nav__mode-toggle {
+  margin-bottom: auto;
+}
+
+.nav__dummy {
+  margin-top: auto;
+}
+
+.nav__link {
+  font-size: 2rem;
 }
 
 ul {
@@ -347,60 +263,6 @@ td {
 .small {
   font-size: 1rem;
   color: var(--dimmed);
-}
-
-.about__skills {
-  display: flex;
-  justify-content: end;
-  padding: 1.5rem;
-}
-
-.about__skills h1 {
-  padding-bottom: 2rem;
-}
-
-.about__skills-container {
-  display: grid;
-  max-width: 24.5rem;
-  flex-grow: 1;
-}
-
-@media screen and (min-width: 650px) {
-  nav {
-    height: 100dvh;
-  }
-  .nav__menu {
-    display: grid;
-    height: 100%;
-    justify-content: space-evenly;
-  }
-  .nav__list {
-    padding-right: 1rem;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    gap: 3rem;
-  }
-  .nav__mode-toggle {
-    top: 2rem;
-    right: calc(var(--menu-width) / 2);
-    transform: translateX(50%);
-    position: absolute;
-    display: flex;
-    justify-content: center;
-  }
-  .nav__link {
-    justify-content: end;
-  }
-  .nav__icon {
-    display: none;
-  }
-  .nav__name {
-    text-align: right;
-  }
-  #light-mode-toggle {
-    font-size: 2.5rem;
-  }
 }
 
 #projects h1 {
