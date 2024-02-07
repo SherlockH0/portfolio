@@ -2,6 +2,8 @@
 @import "https://fonts.googleapis.com/css?family=Inconsolata|Julius Sans One";
 
 :root {
+  font-size: 18px;
+
   --dark: rgba(7, 7, 7, 1);
   --light: rgba(244, 203, 164, 1);
   --red: rgba(146, 20, 12, 1);
@@ -11,6 +13,8 @@
   --dimmed-text-dark: rgba(146, 80, 18, 1);
   --dimmed-text-light: rgba(73, 73, 73, 1);
   --buttons--primary: rgba(122, 158, 126, 1);
+
+  --active: var(--yellow);
 
   --gradient-1-dark: linear-gradient(
     144deg,
@@ -24,8 +28,8 @@
   );
   --gradient-3-dark: linear-gradient(
     143deg,
-    #1e81f0 17.7%,
-    rgba(146, 20, 12, 0) 50%
+    #1e81f0,
+    rgba(146, 20, 12, 0.1)
   );
 
   --gradient-1-light: linear-gradient(144deg, #1e81f0 17.66%, #79b473 50%);
@@ -51,6 +55,7 @@
   --background: var(--light);
   --foreground: var(--dark);
   --dimmed: var(--dimmed-text-light);
+  --active: var(--red);
 
   --gradient-1: var(--gradient-1-light);
   --gradient-2: var(--gradient-2-light);
@@ -72,14 +77,17 @@ body {
   width: 100vw;
 }
 
-main {
-  margin: auto;
+body::before {
+  position: fixed;
+  inset: 0;
+  background: #070707;
+  opacity: 0.9;
+  z-index: 0;
 }
 
 h1.bold {
   font-family: Julius Sans One;
-  font-size: 2.25rem;
-  font-weight: 600;
+  font-size: 3rem;
   line-height: normal;
 }
 
@@ -103,7 +111,7 @@ a {
 
 .mode-toggle:hover,
 a:hover {
-  color: var(--accent);
+  color: var(--hover);
 }
 
 img {
@@ -117,7 +125,7 @@ ul {
 }
 
 .active-link {
-  color: var(--dimmed);
+  color: var(--active);
 }
 
 hr {
@@ -219,40 +227,98 @@ hr {
 }
 
 .navbar__nav {
-  padding: 0.8rem;
+  padding: 0.8rem 2rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: 2.5rem;
 }
 
-.nav__mode-toggle {
+.nav__item:last-child {
   margin-bottom: auto;
 }
 
-.nav__dummy {
-  margin-top: auto;
+.nav__mode-toggle {
+  margin-bottom: 17dvh;
 }
 
 .nav__link {
   font-size: 2rem;
 }
 
-#hero {
+.hero {
+  min-height: 80dvh;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+}
+
+section {
+  margin: auto;
+  max-width: 800px;
+}
+
+.wrapper {
   display: grid;
   justify-content: center;
   align-content: center;
 }
 
+.hero__wrapper {
+  width: 100%;
+  height: 130%;
+
+  background:
+      linear-gradient(to right, var(--foreground) 1px, transparent 1px) 0 0,
+      linear-gradient(to right, var(--foreground) 1px, transparent 1px) 0 100%,
+      linear-gradient(to left, var(--foreground) 1px, transparent 1px) 100% 0,
+      linear-gradient(to left, var(--foreground) 1px, transparent 1px) 100% 100%,
+      linear-gradient(to bottom, var(--foreground) 1px, transparent 1px) 0 0,
+      linear-gradient(to bottom, var(--foreground) 1px, transparent 1px) 100% 0,
+      linear-gradient(to top, var(--foreground) 1px, transparent 1px) 0 100%,
+      linear-gradient(to top, var(--foreground) 1px, transparent 1px) 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+.hero__content {
+  display: grid;
+  gap: 1em;
+}
+
+.about {
+  min-height: 80dvh;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+}
+
+.about__title {
+  flex-grow: 2;
+}
+
+.about__text {
+  max-width: 500px;
+}
+
+.hero__socials {
+  margin-top: 1rem;
+  display: flex;
+  gap: 3rem;
+}
 
 #projects h1 {
   text-align: center;
 }
 
+.icon > svg {
+  fill: var(--foreground);
+}
 
-
-
+.about__content {
+  display: flex;
+}
 
 .hidden {
   opacity: 0;
@@ -294,4 +360,41 @@ hr {
 
 .projects__card.show img {
   transform: translatey(0);
+}
+
+
+@media (max-width: 800px) {
+  :root {
+    font-size: 16px;
+  }
+  .about__content {
+    flex-direction: column;
+  }
+}
+
+
+#trailer {
+  height: 15px;
+  width: 15px;
+  background-color: var(--light);
+  border-radius: 20px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s ease;
+
+  mix-blend-mode: difference;
+}
+
+#trailer > i {
+  color: var(--background);
+  line-height: 0;
+}
+
+body:hover > #trailer {
+  opacity: 1;
 }
