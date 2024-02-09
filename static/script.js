@@ -46,54 +46,13 @@ window
     }
   });
 
-/*==================== SCROOL ANIMATIONS ====================*/
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-});
-
-const hiddenElements = document.querySelectorAll(".hidden");
-
 /*==================== PRELOADER ====================*/
 
 const loader = document.getElementById("preloader");
 
 window.addEventListener("load", () => {
   loader.style.display = "none";
-  hiddenElements.forEach((el) => observer.observe(el));
 });
-
-/*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
-const sections = document.querySelectorAll("section[id]");
-
-function scrollActive() {
-  const scrollY = window.pageYOffset;
-  const halfScreenHeight = window.innerHeight / 2;
-
-  sections.forEach((current) => {
-    const sectionHeight = current.offsetHeight,
-      sectionTop = current.offsetTop - 50,
-      sectionId = current.getAttribute("id");
-
-    if (
-      scrollY > sectionTop - halfScreenHeight &&
-      scrollY <= sectionTop + sectionHeight - halfScreenHeight
-    ) {
-      document
-        .querySelector(".nav__menu a[href*=" + sectionId + "]")
-        .classList.add("active-link");
-    } else {
-      document
-        .querySelector(".nav__menu a[href*=" + sectionId + "]")
-        .classList.remove("active-link");
-    }
-  });
-}
-window.addEventListener("scroll", scrollActive);
 
 /*==================== MOUSE TRAILER ====================*/
 
@@ -104,7 +63,7 @@ animateTrailer = (e, interacting) => {
         y = e.clientY - trailer.offsetHeight / 2;
 
   const keyframes = {
-    transform: `translate(${x}px, ${y}px) scale(${interacting ? 8 : 1})`
+    transform: `translate(${x}px, ${y}px) scale(${interacting ? 7 : 1})`
   }
 
   trailer.animate(keyframes, {
@@ -114,10 +73,50 @@ animateTrailer = (e, interacting) => {
 }
 
 window.onmousemove = e => {
-  const interactable = e.target.closest('a'),
+  const interactable = e.target.closest('a, .interactable, .project:not(.projects-header)'),
         interacting = interactable !== null;
-
-
 
   animateTrailer(e, interacting)
 }
+
+/*==================== COPY ====================*/
+
+const copyLinks = document.querySelectorAll('.copy')
+
+copyLinks.forEach((el) => {
+  el.addEventListener('click', () => {
+    navigator.clipboard.writeText(el.innerHTML);
+
+    el.classList.add('copied')
+
+  })
+  el.addEventListener('mouseout', () => {
+    setTimeout(() => {
+      el.classList.remove('copied')
+    }, 300);
+  })
+})
+
+/*==================== OPEN PROJECTS ====================*/
+
+const projectBtns = document.querySelectorAll('.project')
+const main = document.querySelector('.main')
+const closeCardBtns = document.querySelectorAll('#close-project')
+
+projectBtns.forEach((el) => {
+  el.addEventListener('click', () => {
+    const projectId = el.dataset.projectId
+    const projectCard = document.querySelector(`.info[data-project-id="${projectId}"]`)
+    const closeCardBtn = projectCard.getElementsByClassName('close-project')[0]
+
+    projectCard.classList.add('active-slide')
+    main.classList.add('inactive')
+
+    closeCardBtn.addEventListener('click', () => {
+      projectCard.classList.remove('active-slide')
+      main.classList.remove('inactive')
+    })
+  })
+})
+
+
