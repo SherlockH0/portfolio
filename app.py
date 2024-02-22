@@ -65,7 +65,7 @@ def send_email():
     mail.send(msg)
 
 
-projects = {}  # get_projects_from_github()
+projects = get_projects_from_github()
 
 
 @app.route("/", methods=['POST', 'GET'])
