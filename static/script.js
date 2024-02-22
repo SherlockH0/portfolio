@@ -98,15 +98,27 @@ const touchDevice = (navigator.maxTouchPoints & 0xFF || 'ontouchstart' in docume
 const trailer = document.getElementById('trailer');
 trailer.dataset.type = "";
 let big = false;
+let x = 0,
+    y = 0
 
 trailer.style.display = touchDevice ? 'none' : 'revert'
 
 animateTrailer = (e, interacting) => {
-  const x = e.clientX - trailer.offsetWidth / 2,
+  x = e.clientX - trailer.offsetWidth / 2;
   y = e.clientY - trailer.offsetHeight / 2;
-
   const keyframes = {
-    transform: `translate(${x}px, ${y}px) scale(${interacting ? 5 : 1})`
+    transform: `translate(${x}px, ${y}px) scale(${interacting ? 6 : 1})`
+  }
+
+  trailer.animate(keyframes, {
+    duration: 800,
+    fill: 'forwards'
+  })
+}
+
+scaleTrailer = () => {
+  const keyframes = {
+    transform: `translate(${x}px, ${y}px) scale(6)`
   }
 
   trailer.animate(keyframes, {
@@ -127,7 +139,6 @@ window.onmousemove = touchDevice ? null : (e) => {
   ? interactable.dataset.type
   : "";
 };
-
 
 /*==================== COPY ====================*/
 

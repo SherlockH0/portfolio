@@ -350,6 +350,8 @@
       big = true;
       trailer.dataset.type = "loading";
 
+      scaleTrailer()
+
       const url = {{ url_for("send_message")|tojson }}
       form = document.forms.contact_form
 
