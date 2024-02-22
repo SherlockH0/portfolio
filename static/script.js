@@ -1,6 +1,5 @@
 /*==================== MODE SWITCH ====================*/
 let lightMode = localStorage.getItem("lightMode");
-const lightModeToggle = document.querySelector(".mode-toggle");
 const lightModeToggleIcon = document.getElementById("light-mode-toggle");
 
 const enableLightMode = () => {
@@ -22,7 +21,7 @@ if (lightMode === "enabled") {
   localStorage.setItem("lightMode", "enabled");
 }
 
-lightModeToggle.addEventListener("click", () => {
+const toggleMode = () => {
   lightMode = localStorage.getItem("lightMode");
   if (lightMode !== "enabled") {
     enableLightMode();
@@ -31,39 +30,83 @@ lightModeToggle.addEventListener("click", () => {
     disableLightMode();
     localStorage.setItem("lightMode", "disabled");
   }
-});
+};
 
 window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", (event) => {
-    console.log("changed!!");
-    if (lightMode === null) {
-      if (event.matches) {
-        disableLightMode();
-      } else {
-        enableLightMode();
-      }
+.matchMedia("(prefers-color-scheme: dark)")
+.addEventListener("change", (event) => {
+  if (lightMode === null) {
+    if (event.matches) {
+      disableLightMode();
+    } else {
+      enableLightMode();
     }
-  });
-
+  }
+});
 /*==================== PRELOADER ====================*/
 
-const loader = document.getElementById("preloader");
+const preloader = document.getElementById('preloader'),
+  preloaderText = document.getElementById('preloader__text')
 
-window.addEventListener("load", () => {
-  loader.style.display = "none";
+
+history.scrollRestoration = 'manual'
+window.scroll({
+  top: 0,
+  behavior: 'instant'
 });
+
+Pace.on('progress', (progress) => {
+  console.log(progress)
+  preloaderText.innerHTML = ((progress) / 100).toFixed(2)
+});
+
+Pace.on("done", () => {
+  const tl = gsap.timeline();
+  tl
+    .to('#preloader__text', {
+      y: 100,
+      ease: 'power2.in',
+      onComplete() {
+        preloader.classList.add('preloader--hide')
+      }
+    }, 0.5)
+    .to('.header', {
+      y: 0,
+      ease: 'power1.out',
+    }, '<')
+    .to('.hero .slide-out span', {
+      y: 0,
+      stagger: 0.05,
+      ease: 'power4.out',
+      duration: 1,
+      opacity: 1
+    })
+    .to('.hero h2, .blob-container', {
+      y: 0,
+      ease: 'power1.out',
+      opacity: 1
+    }, '<0.2')
+    .to('body', {
+      overflowY: 'auto'
+    }, '<')
+})
 
 /*==================== MOUSE TRAILER ====================*/
 
-const trailer = document.getElementById('trailer')
+const touchDevice = (navigator.maxTouchPoints & 0xFF || 'ontouchstart' in document.documentElement);
+
+const trailer = document.getElementById('trailer');
+trailer.dataset.type = "";
+let big = false;
+
+trailer.style.display = touchDevice ? 'none' : 'revert'
 
 animateTrailer = (e, interacting) => {
   const x = e.clientX - trailer.offsetWidth / 2,
-        y = e.clientY - trailer.offsetHeight / 2;
+  y = e.clientY - trailer.offsetHeight / 2;
 
   const keyframes = {
-    transform: `translate(${x}px, ${y}px) scale(${interacting ? 7 : 1})`
+    transform: `translate(${x}px, ${y}px) scale(${interacting ? 5 : 1})`
   }
 
   trailer.animate(keyframes, {
@@ -72,12 +115,19 @@ animateTrailer = (e, interacting) => {
   })
 }
 
-window.onmousemove = e => {
-  const interactable = e.target.closest('a, .interactable, .project:not(.projects-header)'),
-        interacting = interactable !== null;
+window.onmousemove = touchDevice ? null : (e) => {
+  const interactable = e.target.closest("a, .interactable, button"),
+  interacting = interactable !== null || big;
 
-  animateTrailer(e, interacting)
-}
+  animateTrailer(e, interacting);
+
+  trailer.dataset.type = big
+  ? trailer.dataset.type
+  : interacting
+  ? interactable.dataset.type
+  : "";
+};
+
 
 /*==================== COPY ====================*/
 
@@ -97,26 +147,61 @@ copyLinks.forEach((el) => {
   })
 })
 
-/*==================== OPEN PROJECTS ====================*/
+/*==================== GSAP ====================*/
 
-const projectBtns = document.querySelectorAll('.project')
-const main = document.querySelector('.main')
-const closeCardBtns = document.querySelectorAll('#close-project')
+gsap.utils.toArray('.scroll-animate').forEach((element, i) => {
+  gsap.to(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: '70% bottom',
+    },
+    opacity: 1,
+    y: 0,
+    duration: 1.5,
+    ease: 'power4.out'
+  })
+})
 
-projectBtns.forEach((el) => {
-  el.addEventListener('click', () => {
-    const projectId = el.dataset.projectId
-    const projectCard = document.querySelector(`.info[data-project-id="${projectId}"]`)
-    const closeCardBtn = projectCard.getElementsByClassName('close-project')[0]
+gsap.utils.toArray('.scroll-fade-in').forEach((element, i) => {
+  gsap.to(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: 'bottom bottom'
+    },
+    opacity: 1,
+    ease: 'power4.in',
+  })
+})
 
-    projectCard.classList.add('active-slide')
-    main.classList.add('inactive')
-
-    closeCardBtn.addEventListener('click', () => {
-      projectCard.classList.remove('active-slide')
-      main.classList.remove('inactive')
-    })
+gsap.utils.toArray('.slide-out h1').forEach((element) => {
+  gsap.to(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: 'bottom 80%',
+    },
+    delay: 0.2,
+    opacity: 1,
+    y: 0,
+    ease: 'power4.out',
+    duration: 1,
   })
 })
 
 
+/*==================== MOBILE MENU ====================*/
+menuButton = document.querySelector(".hamburger");
+mobileNav = document.querySelector(".mobile-nav");
+
+const toggleNav = () => {
+  const toExpand = (mobileNav.dataset.visible == "false")
+  mobileNav.dataset.visible = toExpand
+  menuButton.setAttribute('aria-expanded', toExpand)
+  gsap.to('main', {
+    filter: `blur(${toExpand ? '10px' : '0px'})`
+  })
+}
+
+menuButton.addEventListener("click", toggleNav);
+
+document.getElementById('mobile-contact')
+.addEventListener('click', toggleNav)
