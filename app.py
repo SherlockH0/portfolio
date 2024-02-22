@@ -74,6 +74,7 @@ def home():
         'index.html',
         projects=projects,
         base_url=request.base_url,
+        host=request.host,
         my_email=my_email
     )
 

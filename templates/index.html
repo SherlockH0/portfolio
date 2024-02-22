@@ -10,6 +10,23 @@
   <meta property="og:url" content="{{ base_url }}" />
   <meta property="og:image" content="{{ url_for('static', filename='preview.jpg') }}" />
 
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="{{ base_url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Daniil Davtian">
+  <meta property="og:description" content="My portfolio">
+  <meta property="og:image" content="{{ url_for('static', filename='preview.jpg') }}">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="{{ host }}">
+  <meta property="twitter:url" content="{{ base_url }}">
+  <meta name="twitter:title" content="Daniil Davtian">
+  <meta name="twitter:description" content="My portfolio">
+  <meta name="twitter:image" content="{{ url_for('static', filename='preview.jpg') }}">
+
+  <!-- Meta Tags Generated via https://www.opengraph.xyz -->
+
   <link rel="shortcut icon" href="{{ url_for('static', filename='icon.svg') }}">
 
   <title>Daniil Davtian</title>
