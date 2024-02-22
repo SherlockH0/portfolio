@@ -5,7 +5,7 @@ It has dark/light mode switch that automaticly changes color sheme depending on 
 <hr>
 
 TODO:
-- [-] Better hover animations
-- [-] ~~Maybe paralax effect~~
-- [-] Maybe blured blub following the mouse
+- [x] Better hover animations
+- [x] ~~Maybe paralax effect~~
+- [x] Maybe blured blub following the mouse
 - [ ] Separate page for each project
