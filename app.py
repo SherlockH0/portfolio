@@ -70,10 +70,10 @@ projects = get_projects_from_github()
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
-
     return render_template(
         'index.html',
         projects=projects,
+        base_url=request.base_url,
         my_email=my_email
     )
 
