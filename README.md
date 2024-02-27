@@ -1,7 +1,7 @@
-# My portfolio
+# [My portfolio](https://portfolio-six-phi-18.vercel.app/)
 This is my first portfolio! <br> 
 I tried to make it minimal and aesthetic. <br>
-It has dark/light mode switch that automaticly changes color sheme depending on user's device theme and saves chesen theme in local storage. <br>
+It has dark/light mode switch that automaticly changes color sheme depending on user's device theme and saves chosen theme in local storage. <br>
 <hr>
 
 TODO:
