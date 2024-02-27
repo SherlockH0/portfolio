@@ -165,7 +165,6 @@ gsap.utils.toArray('.scroll-animate').forEach((element, i) => {
     scrollTrigger: {
       trigger: element,
       start: 'top 80%',
-      markers: true
     },
     opacity: 1,
     y: 0,
