@@ -20,7 +20,7 @@ github_user = "SherlockH0"
 my_email = "daniil.davtian@gmail.com"
 
 project_names = [
-    # "bookshelf",
+    "bookshelf",
 ]
 
 
