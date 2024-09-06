@@ -14,5 +14,11 @@
       "src": "/(.*)",
       "dest": "app.py"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/favicon",
+      "destination": "/static/img/favicon.ico"
+    }
   ]
 }
