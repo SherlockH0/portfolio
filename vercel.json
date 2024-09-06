@@ -11,12 +11,12 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "app.py"
-    },
-    {
       "src": "/favicon.ico",
       "dest": "/static/img/favicon.ico"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "app.py"
     }
   ]
 }
