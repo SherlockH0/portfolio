@@ -1,0 +1,55 @@
+/**
+* @license
+*
+* Font Family: Satoshi
+* Designed by: Deni Anggara
+* URL: https://www.fontshare.com/fonts/satoshi
+* © 2024 Indian Type Foundry
+*
+* Satoshi Light
+* Satoshi Regular
+* Satoshi Italic
+* Satoshi Bold
+
+*
+*/
+@font-face {
+  font-family: "Satoshi-Light";
+  src:
+    url("/static/fonts/Satoshi-Light.woff2") format("woff2"),
+    url("/static/fonts/Satoshi-Light.woff") format("woff"),
+    url("/static/fonts/Satoshi-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Satoshi-Regular";
+  src:
+    url("/static/fonts/Satoshi-Regular.woff2") format("woff2"),
+    url("/static/fonts/Satoshi-Regular.woff") format("woff"),
+    url("/static/fonts/Satoshi-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Satoshi-Italic";
+  src:
+    url("/static/fonts/Satoshi-Italic.woff2") format("woff2"),
+    url("/static/fonts/Satoshi-Italic.woff") format("woff"),
+    url("/static/fonts/Satoshi-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Satoshi-Bold";
+  src:
+    url("/static/fonts/Satoshi-Bold.woff2") format("woff2"),
+    url("/static/fonts/Satoshi-Bold.woff") format("woff"),
+    url("/static/fonts/Satoshi-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
