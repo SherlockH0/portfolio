@@ -2,7 +2,7 @@
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v8.4.14,
 * Autoprefixer: v10.4.7
-* Browsers: last 4 version
+* Browsers: last 9 version
 */
 
 @import "https://www.nerdfonts.com/assets/css/webfont.css";
@@ -116,19 +116,16 @@ a svg path {
 
 a > *,
 button > * {
-  -webkit-transition: -webkit-transform 0.5s ease;
-  transition: -webkit-transform 0.5s ease;
-  -o-transition: transform 0.5s ease;
-  transition: transform 0.5s ease;
   transition:
     transform 0.5s ease,
     -webkit-transform 0.5s ease;
+  will-change: transform;
 }
 
 a:hover > * {
-  -webkit-transform: translateY(-5%);
-  -ms-transform: translateY(-5%);
-  transform: translateY(-5%);
+  -webkit-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 a:hover .nf-oct-chevron_right,
@@ -530,7 +527,7 @@ nav ul {
   visibility: hidden;
 
   padding: 5rem;
-  padding-top: 13rem;
+  padding-top: 20rem;
   position: fixed;
   inset: 0;
   background: var(--background);
@@ -545,6 +542,7 @@ nav ul {
   transition: -webkit-transform 0.5s ease;
   -o-transition: transform 0.5s ease;
   transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
   transition:
     transform 0.5s ease,
     -webkit-transform 0.5s ease;
@@ -558,14 +556,25 @@ nav ul {
 
 .mobile-nav ul {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 8rem;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
 }
 
 .mobile-socials {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 4rem;
 }
@@ -961,3 +970,4 @@ nav ul {
     clip-path: rect(-0.8rem auto auto auto);
   }
 }
+
