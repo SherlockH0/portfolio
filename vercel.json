@@ -13,10 +13,13 @@
     {
       "src": "/(.*)",
       "dest": "app.py"
-    },
+    }
+  ],
+  "redirects": [
     {
-      "src": "/favicon.ico",
-      "dest": "static/img/favicon.ico"
+      "source": "/favicon.ico",
+      "destination": "/static/img/favicon.ico",
+      "permanent": true
     }
   ]
 }
