@@ -1,4 +1,4 @@
-# [My portfolio](https://portfolio-six-phi-18.vercel.app/)
+# [My portfolio](https://daniildavtian.vercel.app/)
 This is my first portfolio! <br> 
 I tried to make it minimal and aesthetic. <br>
 It has dark/light mode switch that automaticly changes color sheme depending on user's device theme and saves chosen theme in local storage. <br>
