@@ -19,7 +19,9 @@ mail = Mail(app)
 github_user = "SherlockH0"
 my_email = "daniil.davtian@gmail.com"
 
-project_names = []
+project_names = [
+    # "bookshelf",
+]
 
 
 def get_projects_from_github():
