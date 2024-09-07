@@ -5,7 +5,7 @@ import requests
 from flask import Flask, render_template, request
 from flask_mail import Mail, Message
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["MAIL_SERVER"] = "smtp.googlemail.com"
