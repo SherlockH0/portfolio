@@ -60,6 +60,7 @@
   margin-top: 39rem;
   font-size: 9rem;
   line-height: 6.3rem;
+  font-variant-numeric: slashed-zero tabular-nums;
 }
 
 .preloader--hide {
@@ -265,14 +266,14 @@ p {
 }
 
 .copy::after {
-  font-family: 'NerdFontsSymbols Nerd Font';
+  font-family: "NerdFontsSymbols Nerd Font";
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
   transition: 0.3s ease;
   content: "";
   background: var(--foreground);
   color: var(--background);
-  padding: .3rem .7rem;
+  padding: 0.3rem 0.7rem;
   font-size: 2.5rem;
   border-radius: 0.5rem;
   position: absolute;
@@ -283,7 +284,7 @@ p {
 
 .copy:hover::after {
   opacity: 1;
-  bottom: -.2rem;
+  bottom: -0.2rem;
 }
 
 .copy.copied::after {
@@ -542,7 +543,9 @@ nav ul {
   transition: -webkit-transform 0.5s ease;
   -o-transition: transform 0.5s ease;
   transition: transform 0.5s ease;
-  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+  transition:
+    transform 0.5s ease,
+    -webkit-transform 0.5s ease;
   transition:
     transform 0.5s ease,
     -webkit-transform 0.5s ease;
@@ -562,14 +565,14 @@ nav ul {
   gap: 8rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
+  -ms-flex-pack: start;
+  justify-content: start;
   -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
+  -ms-flex-align: start;
+  align-items: start;
 }
 
 .mobile-socials {
@@ -970,4 +973,3 @@ nav ul {
     clip-path: rect(-0.8rem auto auto auto);
   }
 }
-
