@@ -705,7 +705,6 @@ nav ul {
 }
 
 .project-preview img {
-  border: var(--border);
   min-width: 320px;
   margin-bottom: 3rem;
 }
