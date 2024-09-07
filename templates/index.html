@@ -8,14 +8,20 @@
     <meta property="og:title" content="Daniil Davtian" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ base_url }}" />
-    <meta property="og:image" content="/static/preview.jpg" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='preview.jpg') }}"
+    />
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="{{ base_url }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Daniil Davtian" />
     <meta property="og:description" content="My portfolio" />
-    <meta property="og:image" content="/static/preview.jpg" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='preview.jpg') }}"
+    />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -23,7 +29,10 @@
     <meta property="twitter:url" content="{{ base_url }}" />
     <meta name="twitter:title" content="Daniil Davtian" />
     <meta name="twitter:description" content="My portfolio" />
-    <meta name="twitter:image" content="/static/preview.jpg" />
+    <meta
+      name="twitter:image"
+      content="{{ url_for('static', filename='preview.jpg') }}"
+    />
 
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 
@@ -55,9 +64,21 @@
       data-pace-options='{"document": true, "ajax": true, "eventLag": false}'
       src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"
     ></script>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css" />
-    <link rel="stylesheet" type="text/css" href="/static/satoshi.css" />
-    <link rel="stylesheet" type="text/css" href="/static/cabinet-grotesk.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='satoshi.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='cabinet-grotesk.css') }}"
+    />
   </head>
   <body>
     <div id="preloader">
@@ -152,7 +173,10 @@
         </ul>
         <ul class="nav__contacts">
           <li>
-            <a class="link" href="/static/Resume.pdf">
+            <a
+              class="link"
+              href="{{ url_for('static', filename='Resume.pdf') }}"
+            >
               <div>RESUME</div>
             </a>
           </li>
@@ -243,7 +267,7 @@
           </a>
         </li>
         <li>
-          <a class="/static/Resume.pdf">
+          <a class="link" href="{{ url_for('static', filename='Resume.pdf') }}">
             <div>RESUME</div>
           </a>
         </li>
@@ -303,8 +327,10 @@
           <div class="scroll-animate">
             <h3>My skills</h3>
             <p>
-              <span class="muted">Backend:</span> Python, Django, Flask, Celery, Linux, SQL <br />
-              <span class="muted">Frontend:</span> HTML, CSS, JavaScript, TailwindCSS, Bootstrap, GSAP<br />
+              <span class="muted">Backend:</span> Python, Django, Flask, Celery,
+              Linux, SQL <br />
+              <span class="muted">Frontend:</span> HTML, CSS, JavaScript,
+              TailwindCSS, Bootstrap, GSAP<br />
               <span class="muted">Other:</span> Git, Github
             </p>
           </div>
@@ -416,7 +442,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="/static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 
     <script>
 
