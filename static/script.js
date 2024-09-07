@@ -80,7 +80,7 @@ Pace.on("done", () => {
       },
       "<",
     )
-    .to(".hero .slide-out span", {
+        .to(".hero .slide-out>span", {
       y: 0,
       stagger: 0.05,
       ease: "power4.out",
@@ -88,7 +88,7 @@ Pace.on("done", () => {
       opacity: 1,
     })
     .to(
-      ".hero h2, .blob-container",
+      ".hero p, .blob-container",
       {
         y: 0,
         ease: "power1.out",

@@ -324,7 +324,7 @@ p {
   clip-path: rect(-1.6rem auto auto auto);
 }
 
-.slide-out span,
+.slide-out>span,
 .slide-out h1 {
   display: block;
   -webkit-transform: translateY(-150%);
@@ -333,7 +333,7 @@ p {
   opacity: 0;
 }
 
-.hero h2 {
+.hero p {
   opacity: 0;
   -webkit-transform: translateY(-10%);
   -ms-transform: translateY(-10%);
@@ -686,8 +686,8 @@ nav ul {
   padding-top: 21rem;
 }
 
-.hero h2 {
-  max-width: 16ch;
+.hero p {
+  max-width: 28ch;
 }
 
 .project-preview-container {
