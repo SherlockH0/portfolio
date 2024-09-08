@@ -1,7 +1,6 @@
 import json
 import os
 
-import requests
 from flask import Flask, render_template, request
 from flask_mail import Mail, Message
 
@@ -16,36 +15,14 @@ app.config["MAIL_PASSWORD"] = os.environ.get("EMAIL_PASS")
 
 mail = Mail(app)
 
-github_user = "SherlockH0"
-my_email = "daniil.davtian@gmail.com"
-
-project_names = [
-"bookshop",
-]
+MY_EMAIL = "daniil.davtian@gmail.com"
 
 
-def get_projects_from_github():
-    projects = []
+PROJECTS_FILE = "projects.json"
 
-    for project_name in project_names:
-        url = (
-            "https://raw.githubusercontent.com/"
-            + github_user
-            + "/"
-            + project_name
-            + "/main/description.json"
-        )
-
-        try:
-            response = requests.get(url)
-            if response.status_code != 200:
-                print("Could not load", project_name, "project :(")
-                continue
-
-            project = json.loads(response.text)
-            projects.append(project)
-        except Exception as e:
-            print(e, "\noccurred loading project", project_name)
+def get_projects():
+    with open(PROJECTS_FILE, "r") as projects_file:
+        projects = json.load(projects_file)
 
     return projects
 
@@ -59,7 +36,7 @@ def send_email():
         msg = Message(
             f"{sender_name} has a message for you",
             sender=sender_email,
-            recipients=[my_email],
+            recipients=[MY_EMAIL],
         )
 
         kwargs = {
@@ -78,18 +55,17 @@ def send_email():
         return "Error", 400
 
 
-projects = ""
-projects = get_projects_from_github()
 
 
 @app.route("/", methods=["POST", "GET"])
 def home():
+    projects = get_projects()
     return render_template(
         "index.html",
         projects=projects,
         base_url=request.base_url,
         host=request.host,
-        my_email=my_email,
+        my_email=MY_EMAIL,
     )
 
 
