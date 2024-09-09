@@ -11,6 +11,7 @@
 :root {
   font-size: 8px;
   font-family: "CabinetGrotesk-Regular", sans-serif;
+  font-feature-settings: "ss02" 1;
 
   --background: #1d2021;
   --foreground: #ebdbb2;
@@ -43,7 +44,7 @@
 
 /* Preloader */
 #preloader {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 1000;
   display: -ms-grid;
@@ -57,9 +58,10 @@
 }
 
 #preloader__text {
-  margin-top: 39rem;
+  margin-top: 38rem;
   font-size: 9rem;
-  line-height: 6.3rem;
+  line-height: 7.3rem;
+  font-family: "Satoshi-Regular";
   font-variant-numeric: slashed-zero tabular-nums;
 }
 
@@ -324,7 +326,7 @@ p {
   clip-path: rect(-1.6rem auto auto auto);
 }
 
-.slide-out>span,
+.slide-out > span,
 .slide-out h1 {
   display: block;
   -webkit-transform: translateY(-150%);
@@ -937,9 +939,9 @@ nav ul {
     line-height: 4rem;
   }
   #preloader__text {
-    margin-top: 36rem;
+    margin-top: 35.1rem;
     font-size: 6rem;
-    line-height: 3.8rem;
+    line-height: 4.8rem;
   }
   .underline::after {
     bottom: 1rem;
@@ -960,9 +962,9 @@ nav ul {
     line-height: 3rem;
   }
   #preloader__text {
-    margin-top: 34.6rem;
+    margin-top: 34.2rem;
     font-size: 5rem;
-    line-height: 3.4rem;
+    line-height: 3.8rem;
   }
   .underline::after {
     bottom: 0.8rem;
