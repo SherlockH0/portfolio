@@ -61,7 +61,7 @@
   margin-top: 38rem;
   font-size: 9rem;
   line-height: 7.3rem;
-  font-family: "Satoshi-Regular";
+  font-family: "Satoshi-Regular" sans-serif;
   font-variant-numeric: tabular-nums;
 }
 
