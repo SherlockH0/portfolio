@@ -20,6 +20,7 @@ MY_EMAIL = "daniil.davtian@gmail.com"
 
 PROJECTS_FILE = "projects.json"
 
+
 def get_projects():
     with open(PROJECTS_FILE, "r") as projects_file:
         projects = json.load(projects_file)
@@ -29,32 +30,37 @@ def get_projects():
 
 def send_email():
     if request.json:
-        sender_email = request.json.get("email", "noreply@demo.com")
-        message_text = request.json.get("message", "")
-        sender_name = request.json.get("name", "none")
+        try:
+            sender_email = request.json.get("email", "noreply@demo.com")
+            message_text = request.json.get("message", "")
+            sender_name = request.json.get("name", "none")
 
-        msg = Message(
-            f"{sender_name} has a message for you",
-            sender=sender_email,
-            recipients=[MY_EMAIL],
-        )
+            msg = Message(
+                f"{sender_name} has a message for you",
+                sender=sender_email,
+                recipients=[MY_EMAIL],
+            )
 
-        kwargs = {
-            "sender_email": sender_email,
-            "message_text": message_text,
-            "sender_name": sender_name,
-        }
+            kwargs = {
+                "sender_email": sender_email,
+                "message_text": message_text,
+                "sender_name": sender_name,
+            }
 
-        msg.body = render_template("email.txt", **kwargs)
-        msg.html = render_template("email.html", **kwargs)
+            msg.body = render_template("email.txt", **kwargs)
+            msg.html = render_template("email.html", **kwargs)
 
-        mail.send(msg)
+            mail.send(msg)
 
-        return "Message sent!", 200
+            return {"status": "Message sent!"}, 200
+
+        except Exception as e:
+
+            print(e, f"occured trying to send an email")
+        return {"status": "Server Error"}, 500
+
     else:
-        return "Error", 400
-
-
+        return {"status": "Error"}, 400
 
 
 @app.route("/", methods=["POST", "GET"])

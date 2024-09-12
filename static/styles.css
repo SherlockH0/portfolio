@@ -355,8 +355,8 @@ p {
 
 /* Mouse trailer */
 #trailer {
-  height: 15px;
-  width: 15px;
+  height: 16px;
+  width: 16px;
   background-color: #ebdbb2;
   border-radius: 20px;
 
@@ -379,7 +379,6 @@ body:hover > #trailer {
 
 .trailer-icon {
   color: #1d2021;
-  display: block;
 
   -webkit-transition: opacity 0.6s ease;
 
@@ -393,8 +392,6 @@ body:hover > #trailer {
   display: -ms-grid;
   display: grid;
   place-items: center;
-
-  font-size: 0.6rem;
 }
 
 #trailer[data-type="loading"] > #loading-icon,

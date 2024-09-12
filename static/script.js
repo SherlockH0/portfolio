@@ -55,7 +55,6 @@ window.scroll({
 });
 
 Pace.on("progress", (progress) => {
-  console.log(progress);
   preloaderText.innerHTML = (progress / 100).toFixed(2);
 });
 
@@ -122,7 +121,7 @@ animateTrailer = (e, interacting) => {
   x = e.clientX - trailer.offsetWidth / 2;
   y = e.clientY - trailer.offsetHeight / 2;
   const keyframes = {
-    transform: `translate(${x}px, ${y}px) scale(${interacting ? 6 : 1})`,
+    transform: `translate(${x}px, ${y}px) scale(${interacting ? 5 : 1})`,
   };
 
   trailer.animate(keyframes, {
@@ -133,7 +132,7 @@ animateTrailer = (e, interacting) => {
 
 scaleTrailer = () => {
   const keyframes = {
-    transform: `translate(${x}px, ${y}px) scale(6)`,
+    transform: `translate(${x}px, ${y}px) scale(5)`,
   };
 
   trailer.animate(keyframes, {
