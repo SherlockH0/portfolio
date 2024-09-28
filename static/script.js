@@ -79,7 +79,7 @@ Pace.on("done", () => {
       },
       "<",
     )
-        .to(".hero .slide-out>span", {
+    .to(".hero .slide-out>span", {
       y: 0,
       stagger: 0.05,
       ease: "power4.out",
@@ -179,11 +179,11 @@ gsap.utils.toArray(".scroll-animate").forEach((element, i) => {
   gsap.to(element, {
     scrollTrigger: {
       trigger: element,
-      start: "top 80%",
+      start: "top 90%",
     },
     opacity: 1,
     y: 0,
-    duration: 1.5,
+    duration: 1,
     ease: "power4.out",
   });
 });

@@ -207,7 +207,14 @@ h3 {
   font-size: 4.5rem;
   line-height: 4.5rem;
   font-family: "CabinetGrotesk-Medium";
-  margin-bottom: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+h5 {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+  font-family: "CabinetGrotesk-Regular";
+  margin-bottom: 0.5rem;
 }
 
 p,
@@ -225,8 +232,22 @@ label {
 
 p {
   font-family: "Satoshi-Regular", sans-serif;
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
   max-width: 55ch;
+}
+
+ul {
+  padding-left: 2rem;
+}
+
+li {
+  list-style: none;
+}
+
+li > p {
+  padding: revert;
+  font-size: 2.2rem;
+  line-height: 3rem;
 }
 
 /* || UTILITY CLASSES */
@@ -344,9 +365,9 @@ p {
 
 .scroll-animate {
   opacity: 0;
-  -webkit-transform: translateY(5rem);
-  -ms-transform: translateY(5rem);
-  transform: translateY(5rem);
+  -webkit-transform: translateY(6rem);
+  -ms-transform: translateY(6rem);
+  transform: translateY(6rem);
 }
 
 .scroll-fade-in {
@@ -466,13 +487,17 @@ body:hover > #trailer {
 }
 
 .about > div {
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
 }
 
 .about > * {
   -webkit-column-break-inside: avoid;
   -moz-column-break-inside: avoid;
   break-inside: avoid;
+}
+
+#about_text {
+  margin-bottom: 5rem;
 }
 
 /* || ELEMENTS */

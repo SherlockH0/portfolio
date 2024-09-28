@@ -356,26 +356,72 @@
         </section>
 
         <section id="about" class="about">
-          <div class="scroll-animate">
+          <div class="scroll-animate" id="about_text">
             <h3>About me</h3>
-<p>I build web applications with a focus on solid backend systems, while occasionally designing minimal and aesthetic front-end interfaces.</p>
-<p>With over six years of programming experience, I’ve explored fields such as game development and Arduino, eventually gravitating towards web development and learning Python, Django, HTML & CSS, and JavaScript.</p>
-<p>When I'm not in front of my computer, I enjoy cooking, listening to music, engaging into math and physics or learning something new.</p>
+            <p>
+              I build web applications with a focus on solid backend systems,
+              while occasionally designing minimal and aesthetic front-end
+              interfaces.
+            </p>
+            <p>
+              With over six years of programming experience, I’ve explored
+              fields such as game development and Arduino, eventually
+              gravitating towards web development.
+            </p>
+            <p>
+              When I'm not in front of my computer, I enjoy cooking, listening
+              to music, engaging into math and physics or learning something
+              new.
+            </p>
           </div>
           <div class="scroll-animate">
             <h3>My skills</h3>
-            <p>
-              <span class="muted">Backend:</span> Python, Django, Flask, Celery,
-              Linux, SQL <br />
-              <span class="muted">Frontend:</span> HTML, CSS, JavaScript,
-              TailwindCSS, Bootstrap, GSAP<br />
-              <span class="muted">Other:</span> Git, Github
-            </p>
+            <h5>Backend</h5>
+            <ul>
+              <li>
+                <p><i class="muted">Languages:</i> Python, Bash</p>
+              </li>
+              <li>
+                <p><i class="muted">Frameworks:</i> Django, Flask</p>
+              </li>
+              <li>
+                <p>
+                  <i class="muted">Tools:</i>
+                  Linux, SQL, Docker, Docker-compose
+                </p>
+              </li>
+            </ul>
           </div>
-         <!-- <div class="scroll-animate">
-            <h3>Tools I use</h3>
-            <p>Neovim, GitHub, AwesomeWM</p>
-          </div>-->
+          <div class="scroll-animate">
+            <h5>Frontend</h5>
+            <ul>
+              <li>
+                <p>
+                  <i class="muted">Languages:</i> HTML, CSS, JavaScript
+                  (TypeScript)
+                </p>
+              </li>
+              <li>
+                <p>
+                  <i class="muted">Frameworks:</i> TailwindCSS, GSAP, Bootstrap,
+                  Vite.js, Svelte
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="scroll-animate">
+            <h5>Other</h5>
+            <ul>
+              <li>
+                <p><i class="muted">Languages:</i> Lua</p>
+              </li>
+              <li>
+                <p>
+                  <i class="muted">Tools:</i> Git, Github, Neovim (Vim), Tmux
+                </p>
+              </li>
+            </ul>
+          </div>
         </section>
 
         <section id="projects" class="projects">
@@ -544,9 +590,9 @@
             "headers": {"Content-Type": "application/json"},
             "body": JSON.stringify(form_data),
         }).then((response) => {
-          if (response.status == 200) { 
+          if (response.status == 200) {
             messageAlert('sent')
-            return 
+            return
           }
           messageAlert('error')
         })
