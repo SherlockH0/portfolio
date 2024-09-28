@@ -922,10 +922,10 @@ nav ul {
   :root {
     font-size: 6px;
   }
-  .small {
-    font-size: 3rem;
-    line-height: 4rem;
-  }
+  /* .small { */
+  /*   font-size: 3rem; */
+  /*   line-height: 4rem; */
+  /* } */
   .blob-container {
     top: 30rem;
   }
