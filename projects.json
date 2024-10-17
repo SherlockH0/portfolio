@@ -7,5 +7,13 @@
     "website_url": "https://bookshelf-ochre.vercel.app",
     "github_url": "https://github.com/SherlockH0/bookshelf",
     "on_youtube": false
+  },
+  {
+    "title": "Psychological courses website",
+    "description": "",
+    "tech": "Django, TailwindCSS, Docker, Redis, Celery, JavaScript, LiqPay",
+    "image_url": "https://raw.githubusercontent.com/SherlockH0/portfolio/main/meta/skulskavladyslavacom_preview.png",
+    "website_url": "https://skulskavladyslava.com",
+    "on_youtube": false
   }
 ]
