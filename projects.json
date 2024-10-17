@@ -1,19 +1,19 @@
 [
   {
+    "title": "Psychological courses website",
+    "description": "This was my first real-world project, where I was responsible for both backend and frontend development, as well as the full deployment process. It was an exciting and rewarding experience that deepened my understanding of web development. The website features a robust authentication system, automated course status management powered by Django-Celery, and an integrated LiqPay payment gateway for seamless course purchases.",
+    "tech": "Django, TailwindCSS, Docker, Redis, Celery, JavaScript, LiqPay",
+    "image_url": "https://raw.githubusercontent.com/SherlockH0/portfolio/main/meta/skulskavladyslavacom_preview.png",
+    "website_url": "https://skulskavladyslava.com",
+    "on_youtube": false
+  },
+  {
     "title": "Bookshelf",
     "description": "Bookshelf is a simple e-commerce bookshop website.<br>I implemented cart and wishlist, both for authenticated and guest users, in-site search and integrated PayPal Checkout. ",
     "tech": "Django, HTML&CSS, JavaScript, PayPal Checkout",
     "image_url": "https://raw.githubusercontent.com/SherlockH0/bookshelf/main/preview.png",
     "website_url": "https://bookshelf-ochre.vercel.app",
     "github_url": "https://github.com/SherlockH0/bookshelf",
-    "on_youtube": false
-  },
-  {
-    "title": "Psychological courses website",
-    "description": "",
-    "tech": "Django, TailwindCSS, Docker, Redis, Celery, JavaScript, LiqPay",
-    "image_url": "https://raw.githubusercontent.com/SherlockH0/portfolio/main/meta/skulskavladyslavacom_preview.png",
-    "website_url": "https://skulskavladyslava.com",
     "on_youtube": false
   }
 ]

@@ -433,9 +433,11 @@
           <div class="project-preview-container">
             {% for project in projects %}
             <div class="project-preview scroll-animate">
-              <img src="{{ project.image_url }}" alt="" />
-              <div>
+              <div class="project-preview__left">
                 <h3 class="muted">{{ project.title }}</h3>
+                <img src="{{ project.image_url }}" alt="" />
+              </div>
+              <div class="project-preview__right">
                 <p class="project-description small">
                   {{ project.description|safe }}
                 </p>
@@ -451,6 +453,7 @@
                   {% endif %}
                   <i class="nf nf-oct-chevron_right"></i>
                 </a>
+                {% if project.github_url %}
                 <a
                   href="{{ project.github_url }}"
                   target="_blank"
@@ -459,6 +462,7 @@
                   Project’s GitHub
                   <i class="nf nf-oct-chevron_right"></i>
                 </a>
+                {% endif %}
               </div>
             </div>
             {% endfor %}
