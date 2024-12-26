@@ -18,8 +18,8 @@
   },
   {
     "title": "Blog API",
-    "description": "",
-    "tech": "Django, Django Ninja, Pydantic, Docker",
+    "description": "This is a simple blog API with AI moderation features.",
+    "tech": "Django, Django Ninja, Pydantic, Google AI, Docker",
     "image_url": "https://raw.githubusercontent.com/SherlockH0/Blog-API/refs/heads/main/meta/preview.png",
     "website_url": "https://www.youtube.com/watch?v=MnOoMGSmVR8&feature=youtu.be",
     "github_url": "https://github.com/SherlockH0/Blog-API",
