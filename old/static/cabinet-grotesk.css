@@ -1,0 +1,66 @@
+/**
+* @license
+*
+* Font Family: Cabinet Grotesk
+* Designed by: ITF
+* URL: https://www.fontshare.com/fonts/cabinet-grotesk
+* © 2024 Indian Type Foundry
+*
+* Cabinet Grotesk Light
+* Cabinet Grotesk Regular
+* Cabinet Grotesk Medium
+* Cabinet Grotesk Bold
+* Cabinet Grotesk Extrabold
+
+*
+*/
+@font-face {
+  font-family: "CabinetGrotesk-Light";
+  src:
+    url("/static/fonts/CabinetGrotesk-Light.woff2") format("woff2"),
+    url("/static/fonts/CabinetGrotesk-Light.woff") format("woff"),
+    url("/static/fonts/CabinetGrotesk-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "CabinetGrotesk-Regular";
+  src:
+    url("/static/fonts/CabinetGrotesk-Regular.woff2") format("woff2"),
+    url("/static/fonts/CabinetGrotesk-Regular.woff") format("woff"),
+    url("/static/fonts/CabinetGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "CabinetGrotesk-Medium";
+  src:
+    url("/static/fonts/CabinetGrotesk-Medium.woff2") format("woff2"),
+    url("/static/fonts/CabinetGrotesk-Medium.woff") format("woff"),
+    url("/static/fonts/CabinetGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "CabinetGrotesk-Bold";
+  src:
+    url("/static/fonts/CabinetGrotesk-Bold.woff2") format("woff2"),
+    url("/static/fonts/CabinetGrotesk-Bold.woff") format("woff"),
+    url("/static/fonts/CabinetGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "CabinetGrotesk-Extrabold";
+  src:
+    url("/static/fonts/CabinetGrotesk-Extrabold.woff2") format("woff2"),
+    url("/static/fonts/CabinetGrotesk-Extrabold.woff") format("woff"),
+    url("/static/fonts/CabinetGrotesk-Extrabold.ttf") format("truetype");
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+}

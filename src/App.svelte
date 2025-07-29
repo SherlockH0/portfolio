@@ -1,0 +1,740 @@
+<script lang="ts">
+  import { gsap } from "gsap";
+  import resume from "/Resume.pdf";
+  import "pace-js";
+  import Icon from "@iconify/svelte";
+
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { onMount } from "svelte";
+  let Pace: any;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const projects: {
+    title: string;
+    image_url: string;
+    description: string;
+    tech: string;
+    website_url: string;
+    on_youtube: boolean;
+    github_url: string;
+  }[] = [];
+  const my_email: string = "ddmlf7@gmail.com";
+  /*==================== MODE SWITCH ====================*/
+  let lightMode = localStorage.getItem("lightMode");
+
+  const enableLightMode = () => {
+    document.body.classList.add("light");
+    lightMode = "enabled";
+  };
+
+  const disableLightMode = () => {
+    document.body.classList.remove("light");
+    lightMode = "disabled";
+  };
+
+  if (lightMode === "enabled") {
+    enableLightMode();
+    localStorage.setItem("lightMode", "enabled");
+  }
+
+  const toggleMode = () => {
+    lightMode = localStorage.getItem("lightMode");
+    if (lightMode !== "enabled") {
+      enableLightMode();
+      localStorage.setItem("lightMode", "enabled");
+    } else {
+      disableLightMode();
+      localStorage.setItem("lightMode", "disabled");
+    }
+  };
+
+  onMount(() => {
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (event) => {
+        if (lightMode === null) {
+          if (event.matches) {
+            disableLightMode();
+          } else {
+            enableLightMode();
+          }
+        }
+      });
+    history.scrollRestoration = "manual";
+    window.scroll({
+      top: 0,
+      behavior: "instant",
+    });
+    Pace.options = { document: true, ajax: true, eventLag: false };
+    Pace.on("progress", (progress: number) => {
+      preloaderText = (progress / 100).toFixed(2);
+    });
+
+    Pace.on("done", () => {
+      const tl = gsap.timeline();
+      tl.to(
+        "#preloader__text",
+        {
+          y: 100,
+          ease: "power2.in",
+          onComplete() {
+            preloader.classList.add("preloader--hide");
+          },
+        },
+        0.5,
+      )
+        .to(
+          ".header",
+          {
+            y: 0,
+            ease: "power1.out",
+          },
+          "<",
+        )
+        .to(".hero .slide-out>span", {
+          y: 0,
+          stagger: 0.05,
+          ease: "power4.out",
+          duration: 1,
+          opacity: 1,
+        })
+        .to(
+          ".hero p, .blob-container",
+          {
+            y: 0,
+            ease: "power1.out",
+            opacity: 1,
+          },
+          "<0.2",
+        )
+        .to(
+          "body",
+          {
+            overflowY: "auto",
+          },
+          "<",
+        );
+    });
+  });
+  /*==================== PRELOADER ====================*/
+
+  let preloader: HTMLElement;
+  let preloaderText: string;
+
+  /*==================== MOUSE TRAILER ====================*/
+
+  const touchDevice =
+    navigator.maxTouchPoints & 0xff ||
+    "ontouchstart" in document.documentElement;
+
+  let trailer: HTMLElement;
+  let trailerType = "";
+  let big = false;
+  let x = 0,
+    y = 0;
+
+  function animateTrailer(e, interacting: boolean) {
+    x = e.clientX - trailer.offsetWidth / 2;
+    y = e.clientY - trailer.offsetHeight / 2;
+    const keyframes = {
+      transform: `translate(${x}px, ${y}px) scale(${interacting ? 5 : 1})`,
+    };
+
+    trailer.animate(keyframes, {
+      duration: 800,
+      fill: "forwards",
+    });
+  }
+
+  window.onmousemove = touchDevice
+    ? null
+    : (e) => {
+        if (!e.target) return;
+        const interactable = e.target.closest("a, .interactable, button"),
+          interacting = interactable !== null || big;
+
+        animateTrailer(e, interacting);
+
+        trailerType = big ? trailerType : interacting ? interactable.type : "";
+      };
+
+  /*==================== COPY ====================*/
+
+  const copyLinks = document.querySelectorAll(".copy");
+
+  copyLinks.forEach((el) => {
+    el.addEventListener("click", () => {
+      navigator.clipboard.writeText(el.innerHTML);
+
+      el.classList.add("copied");
+    });
+    el.addEventListener("mouseout", () => {
+      setTimeout(() => {
+        el.classList.remove("copied");
+      }, 300);
+    });
+  });
+
+  /*==================== GSAP ====================*/
+
+  gsap.utils.toArray(".scroll-animate").forEach((element: any, i) => {
+    gsap.to(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: "top 90%",
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power4.out",
+    });
+  });
+
+  gsap.utils.toArray(".scroll-fade-in").forEach((element: any, i) => {
+    gsap.to(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: "bottom bottom",
+      },
+      opacity: 1,
+      ease: "power4.in",
+    });
+  });
+
+  gsap.utils.toArray(".slide-out h1").forEach((element: any) => {
+    gsap.to(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: "bottom 80%",
+      },
+      delay: 0.2,
+      opacity: 1,
+      y: 0,
+      ease: "power4.out",
+      duration: 1,
+    });
+  });
+
+  /*==================== MOBILE MENU ====================*/
+  let mobileNav: HTMLElement;
+  let menuButton: HTMLElement;
+  let mobileNavVisible: boolean = false;
+
+  function toggleNav() {
+    gsap.to("main", {
+      filter: `blur(${mobileNavVisible ? "10px" : "0px"})`,
+    });
+  }
+</script>
+
+<main>
+  <div id="preloader">
+    <div id="preloader__text-wrapper" bind:this={preloader}>
+      <div id="preloader__text">{preloaderText}</div>
+    </div>
+  </div>
+
+  <div bind:this={trailer} style:display={touchDevice ? "none" : "revert"}>
+    <div id="loading-icon" class="trailer-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="8"
+        height="8"
+        viewBox="0 0 24 24"
+      >
+        <g stroke="currentColor">
+          <circle
+            cx="12"
+            cy="12"
+            r="9.5"
+            fill="none"
+            stroke-linecap="round"
+            stroke-width="3"
+          >
+            <animate
+              attributeName="stroke-dasharray"
+              calcMode="spline"
+              dur="1.5s"
+              keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+              keyTimes="0;0.475;0.95;1"
+              repeatCount="indefinite"
+              values="0 150;42 150;42 150;42 150"
+            />
+            <animate
+              attributeName="stroke-dashoffset"
+              calcMode="spline"
+              dur="1.5s"
+              keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+              keyTimes="0;0.475;0.95;1"
+              repeatCount="indefinite"
+              values="0;-16;-59;-59"
+            />
+          </circle>
+          <animateTransform
+            attributeName="transform"
+            dur="2s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="0 12 12;360 12 12"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <div class="trailer-icon" id="sent-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="8px"
+        height="8px"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill="currentColor"
+          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m1.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 0 0-13 0m10.28-1.72l-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 .018-1.042a.75.75 0 0 1 1.042-.018l1.47 1.47l3.97-3.97a.75.75 0 0 1 1.042.018a.75.75 0 0 1 .018 1.042"
+        />
+      </svg>
+    </div>
+
+    <div class="trailer-icon" id="error-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="8px"
+        height="8px"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill="currentColor"
+          d="M2.344 2.343a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746m1.06 10.253a6.5 6.5 0 1 0 9.108-9.275a6.5 6.5 0 0 0-9.108 9.275M6.03 4.97L8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326a.75.75 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275a.75.75 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326a.75.75 0 0 1 .215-.734L6.94 8L4.97 6.03a.75.75 0 0 1 .018-1.042a.75.75 0 0 1 1.042-.018"
+        />
+      </svg>
+    </div>
+
+    <div class="trailer-icon" id="eye-icon">
+      <i class="nf nf-md-eye"></i>
+    </div>
+  </div>
+
+  <header class="header">
+    <nav class="nav">
+      <ul class="nav__socials">
+        <li>
+          <a class="icon" href="https://github.com/SherlockH0/SherlockH0">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.0432 0.179932C10.8147 0.179932 0.0876465 11.0878 0.0876465 24.5445C0.0876465 35.3096 6.95165 44.4426 16.4699 47.6643C17.6672 47.8899 18.1067 47.1358 18.1067 46.4922C18.1067 45.9112 18.0845 43.9919 18.0742 41.956C11.4097 43.4299 10.0034 39.0812 10.0034 39.0812C8.9137 36.265 7.34358 35.5161 7.34358 35.5161C5.17009 34.0039 7.50742 34.035 7.50742 34.035C9.91297 34.2065 11.1796 36.5458 11.1796 36.5458C13.3162 40.2707 16.7837 39.1938 18.1507 38.5712C18.3657 36.9969 18.9866 35.9212 19.6716 35.3132C14.3508 34.6971 8.7574 32.6079 8.7574 23.2719C8.7574 20.6118 9.6932 18.4383 11.2256 16.732C10.9769 16.1179 10.1569 13.6402 11.4577 10.2841C11.4577 10.2841 13.4693 9.62928 18.0472 12.7816C19.9581 12.2418 22.0074 11.971 24.0432 11.9618C26.0791 11.971 28.13 12.2418 30.0444 12.7816C34.6167 9.62928 36.6256 10.2841 36.6256 10.2841C37.9295 13.6402 37.1091 16.1179 36.8604 16.732C38.3964 18.4383 39.3259 20.6118 39.3259 23.2719C39.3259 32.6301 33.7218 34.6906 28.3874 35.2938C29.2467 36.0499 30.0123 37.5327 30.0123 39.8059C30.0123 43.0655 29.9845 45.6893 29.9845 46.4922C29.9845 47.1406 30.4157 47.9003 31.63 47.6611C41.1431 44.4357 47.9984 35.3059 47.9984 24.5445C47.9984 11.0878 37.273 0.179932 24.0432 0.179932Z"
+              />
+              <path
+                d="M9.16085 35.1623C9.10809 35.2838 8.92085 35.3197 8.75027 35.2366C8.57652 35.1571 8.47893 34.9921 8.53526 34.8706C8.58683 34.746 8.77447 34.7117 8.94782 34.7944C9.12197 34.8743 9.22115 35.0409 9.16085 35.1623Z"
+              />
+              <path
+                d="M10.131 36.263C10.0168 36.3707 9.79346 36.3207 9.64192 36.1504C9.48523 35.9806 9.45587 35.7534 9.57171 35.6441C9.68953 35.5363 9.90612 35.5868 10.0632 35.7566C10.2199 35.9285 10.2505 36.1541 10.131 36.263Z"
+              />
+              <path
+                d="M11.0757 37.6662C10.929 37.7699 10.689 37.6726 10.5406 37.456C10.3938 37.2393 10.3938 36.9795 10.5438 36.8754C10.6925 36.7713 10.929 36.8649 11.0793 37.0799C11.2257 37.2998 11.2257 37.5601 11.0757 37.6662Z"
+              />
+              <path
+                d="M12.3698 39.0219C12.2385 39.1692 11.9588 39.1297 11.7541 38.9287C11.5446 38.7322 11.4863 38.4534 11.618 38.3062C11.7509 38.1585 12.0322 38.2001 12.2385 38.3994C12.4463 38.5955 12.5098 38.8763 12.3698 39.0219Z"
+              />
+              <path
+                d="M14.1549 39.809C14.097 39.9999 13.8276 40.0866 13.5563 40.0055C13.2853 39.922 13.108 39.6985 13.1628 39.5056C13.2191 39.3136 13.4896 39.2232 13.763 39.3099C14.0335 39.393 14.2112 39.6149 14.1549 39.809Z"
+              />
+              <path
+                d="M16.1154 39.9552C16.1221 40.1561 15.892 40.3228 15.6072 40.326C15.3208 40.3329 15.0891 40.1703 15.0859 39.9726C15.0859 39.7696 15.3109 39.6046 15.5973 39.5998C15.8821 39.5941 16.1154 39.7555 16.1154 39.9552Z"
+              />
+              <path
+                d="M17.9396 39.6392C17.9737 39.8353 17.7757 40.0366 17.4929 40.0899C17.2148 40.1419 16.9574 40.0209 16.9221 39.8264C16.8876 39.6255 17.0891 39.4241 17.3668 39.3721C17.65 39.3221 17.9035 39.4399 17.9396 39.6392Z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="https://www.linkedin.com/in/daniil-davtian/">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM11.5216 19.8778H16.9605V36.2196H11.5216V19.8778ZM17.3188 14.8227C17.2835 13.2204 16.1377 12 14.277 12C12.4164 12 11.2 13.2204 11.2 14.8227C11.2 16.3918 12.3805 17.6473 14.2064 17.6473H14.2412C16.1377 17.6473 17.3188 16.3918 17.3188 14.8227ZM30.3131 19.4941C33.8922 19.4941 36.5754 21.8303 36.5754 26.8497L36.5752 36.2196H31.1365V27.4767C31.1365 25.2807 30.3494 23.7822 28.3805 23.7822C26.8779 23.7822 25.9829 24.7924 25.5898 25.7682C25.446 26.1178 25.4107 26.605 25.4107 27.0934V36.22H19.9711C19.9711 36.22 20.0428 21.4117 19.9711 19.8783H25.4107V22.1929C26.1325 21.0802 27.4254 19.4941 30.3131 19.4941Z"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav__contacts">
+        <li>
+          <a class="link" href={resume}>
+            <div>RÉSUMÉ</div>
+          </a>
+        </li>
+        <li>
+          <a href="#contact">
+            <div>GET IN TOUCH</div>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav__mode-toggle">
+        <li>
+          <button on:click={toggleMode} class="mode-toggle icon">
+            <Icon icon={lightMode === "enabled" ? "ci:sun" : "ci:moon"} />
+          </button>
+        </li>
+      </ul>
+      <button
+        on:click={toggleNav}
+        bind:this={menuButton}
+        class="interactable hamburger"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span class="sr-only">Menu</span>
+        <svg
+          viewBox="0 0 64 64"
+          fill="var(--foreground)"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect class="line top" width="64" height="6" x="0" y="15" rx="3"
+          ></rect>
+          <rect class="line bottom" width="64" height="6" x="0" y="41" rx="3"
+          ></rect>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <nav class="mobile-nav" bind:this={mobileNav} id="mobile-nav">
+    <ul>
+      <li class="mobile-socials">
+        <a class="icon" href="https://github.com/SherlockH0/SherlockH0">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M24.0432 0.179932C10.8147 0.179932 0.0876465 11.0878 0.0876465 24.5445C0.0876465 35.3096 6.95165 44.4426 16.4699 47.6643C17.6672 47.8899 18.1067 47.1358 18.1067 46.4922C18.1067 45.9112 18.0845 43.9919 18.0742 41.956C11.4097 43.4299 10.0034 39.0812 10.0034 39.0812C8.9137 36.265 7.34358 35.5161 7.34358 35.5161C5.17009 34.0039 7.50742 34.035 7.50742 34.035C9.91297 34.2065 11.1796 36.5458 11.1796 36.5458C13.3162 40.2707 16.7837 39.1938 18.1507 38.5712C18.3657 36.9969 18.9866 35.9212 19.6716 35.3132C14.3508 34.6971 8.7574 32.6079 8.7574 23.2719C8.7574 20.6118 9.6932 18.4383 11.2256 16.732C10.9769 16.1179 10.1569 13.6402 11.4577 10.2841C11.4577 10.2841 13.4693 9.62928 18.0472 12.7816C19.9581 12.2418 22.0074 11.971 24.0432 11.9618C26.0791 11.971 28.13 12.2418 30.0444 12.7816C34.6167 9.62928 36.6256 10.2841 36.6256 10.2841C37.9295 13.6402 37.1091 16.1179 36.8604 16.732C38.3964 18.4383 39.3259 20.6118 39.3259 23.2719C39.3259 32.6301 33.7218 34.6906 28.3874 35.2938C29.2467 36.0499 30.0123 37.5327 30.0123 39.8059C30.0123 43.0655 29.9845 45.6893 29.9845 46.4922C29.9845 47.1406 30.4157 47.9003 31.63 47.6611C41.1431 44.4357 47.9984 35.3059 47.9984 24.5445C47.9984 11.0878 37.273 0.179932 24.0432 0.179932Z"
+            />
+            <path
+              d="M9.16085 35.1623C9.10809 35.2838 8.92085 35.3197 8.75027 35.2366C8.57652 35.1571 8.47893 34.9921 8.53526 34.8706C8.58683 34.746 8.77447 34.7117 8.94782 34.7944C9.12197 34.8743 9.22115 35.0409 9.16085 35.1623Z"
+            />
+            <path
+              d="M10.131 36.263C10.0168 36.3707 9.79346 36.3207 9.64192 36.1504C9.48523 35.9806 9.45587 35.7534 9.57171 35.6441C9.68953 35.5363 9.90612 35.5868 10.0632 35.7566C10.2199 35.9285 10.2505 36.1541 10.131 36.263Z"
+            />
+            <path
+              d="M11.0757 37.6662C10.929 37.7699 10.689 37.6726 10.5406 37.456C10.3938 37.2393 10.3938 36.9795 10.5438 36.8754C10.6925 36.7713 10.929 36.8649 11.0793 37.0799C11.2257 37.2998 11.2257 37.5601 11.0757 37.6662Z"
+            />
+            <path
+              d="M12.3698 39.0219C12.2385 39.1692 11.9588 39.1297 11.7541 38.9287C11.5446 38.7322 11.4863 38.4534 11.618 38.3062C11.7509 38.1585 12.0322 38.2001 12.2385 38.3994C12.4463 38.5955 12.5098 38.8763 12.3698 39.0219Z"
+            />
+            <path
+              d="M14.1549 39.809C14.097 39.9999 13.8276 40.0866 13.5563 40.0055C13.2853 39.922 13.108 39.6985 13.1628 39.5056C13.2191 39.3136 13.4896 39.2232 13.763 39.3099C14.0335 39.393 14.2112 39.6149 14.1549 39.809Z"
+            />
+            <path
+              d="M16.1154 39.9552C16.1221 40.1561 15.892 40.3228 15.6072 40.326C15.3208 40.3329 15.0891 40.1703 15.0859 39.9726C15.0859 39.7696 15.3109 39.6046 15.5973 39.5998C15.8821 39.5941 16.1154 39.7555 16.1154 39.9552Z"
+            />
+            <path
+              d="M17.9396 39.6392C17.9737 39.8353 17.7757 40.0366 17.4929 40.0899C17.2148 40.1419 16.9574 40.0209 16.9221 39.8264C16.8876 39.6255 17.0891 39.4241 17.3668 39.3721C17.65 39.3221 17.9035 39.4399 17.9396 39.6392Z"
+            />
+          </svg>
+        </a>
+        <a class="icon" href="https://www.linkedin.com/in/daniil-davtian/">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM11.5216 19.8778H16.9605V36.2196H11.5216V19.8778ZM17.3188 14.8227C17.2835 13.2204 16.1377 12 14.277 12C12.4164 12 11.2 13.2204 11.2 14.8227C11.2 16.3918 12.3805 17.6473 14.2064 17.6473H14.2412C16.1377 17.6473 17.3188 16.3918 17.3188 14.8227ZM30.3131 19.4941C33.8922 19.4941 36.5754 21.8303 36.5754 26.8497L36.5752 36.2196H31.1365V27.4767C31.1365 25.2807 30.3494 23.7822 28.3805 23.7822C26.8779 23.7822 25.9829 24.7924 25.5898 25.7682C25.446 26.1178 25.4107 26.605 25.4107 27.0934V36.22H19.9711C19.9711 36.22 20.0428 21.4117 19.9711 19.8783H25.4107V22.1929C26.1325 21.0802 27.4254 19.4941 30.3131 19.4941Z"
+            />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a class="link" href={resume}>
+          <div>RÉSUMÉ</div>
+        </a>
+      </li>
+      <li>
+        <a id="mobile-contact" on:click={toggleNav} href="#contact">
+          <div>GET IN TOUCH</div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="mobile-success">
+    <div>Message <span></span>!</div>
+  </div>
+
+  <div class="wrapper">
+    <main>
+      <section id="hero" class="hero">
+        <h1>
+          <div class="underline">
+            <div class="slide-out">
+              <span><span class="muted">Hi! I’m</span> Daniil Davtian,</span>
+            </div>
+          </div>
+          <div class="underline">
+            <div class="slide-out">
+              <span><span class="muted">a junior</span> full-stack</span>
+            </div>
+          </div>
+          <div class="underline">
+            <div class="slide-out">
+              <span>web developer</span>
+            </div>
+          </div>
+        </h1>
+        <p>
+          I love developing clean, interactive applications, trying to make the
+          world around me a&nbsp;bit&nbsp;better.
+        </p>
+        <div class="blob-container">
+          <div class="blob aqua"></div>
+          <div class="blob blue"></div>
+          <div class="blob red"></div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div class="scroll-animate" id="about_text">
+          <h3>About me</h3>
+          <p>
+            I build web applications with a focus on solid backend systems,
+            while occasionally designing minimal and aesthetic front-end
+            interfaces.
+          </p>
+          <p>
+            With over six years of programming experience, I’ve explored fields
+            such as game development and Arduino, eventually gravitating towards
+            web development.
+          </p>
+          <p>
+            When I'm not in front of my computer, I enjoy cooking, listening to
+            music, engaging into math and physics or learning something new.
+          </p>
+        </div>
+        <div class="scroll-animate">
+          <h3>My skills</h3>
+          <h5>Backend</h5>
+          <ul>
+            <li>
+              <p><i class="muted">Languages:</i> Python, Bash</p>
+            </li>
+            <li>
+              <p><i class="muted">Frameworks:</i> Django, Flask</p>
+            </li>
+            <li>
+              <p>
+                <i class="muted">Tools:</i>
+                Linux, SQL, Docker
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="scroll-animate">
+          <h5>Frontend</h5>
+          <ul>
+            <li>
+              <p>
+                <i class="muted">Languages:</i> HTML, CSS, JavaScript (TypeScript)
+              </p>
+            </li>
+            <li>
+              <p>
+                <i class="muted">Frameworks:</i> TailwindCSS, GSAP, Bootstrap, Vite.js,
+                Svelte
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="scroll-animate">
+          <h5>Other</h5>
+          <ul>
+            <li>
+              <p><i class="muted">Languages:</i> Lua</p>
+            </li>
+            <li>
+              <p>
+                <i class="muted">Tools:</i> Git, Github, Neovim (Vim), Tmux
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="projects" class="projects">
+        <div class="underline">
+          <div class="slide-out">
+            <h1>My Projects</h1>
+          </div>
+        </div>
+        <div class="project-preview-container">
+          {#each projects as project}
+            <div class="project-preview scroll-animate">
+              <div class="project-preview__left">
+                <h3 class="muted">{project.title}</h3>
+                <img src={project.image_url} alt="" />
+              </div>
+              <div class="project-preview__right">
+                <p class="project-description small">
+                  {project.description}
+                </p>
+                <p class="project-tech muted small">{project.tech}</p>
+
+                <a
+                  style="margin-bottom: 1rem"
+                  href={project.website_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {#if project.on_youtube}YouTube
+                  {:else}
+                    Visit website
+                  {/if}
+                  <i class="nf nf-oct-chevron_right"></i>
+                </a>
+                {#if project.github_url}
+                  <a
+                    href={project.github_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Project’s GitHub
+                    <i class="nf nf-oct-chevron_right"></i>
+                  </a>
+                {/if}
+              </div>
+            </div>
+          {/each}
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="underline">
+          <div class="slide-out">
+            <h1>Get In Touch</h1>
+          </div>
+        </div>
+        <form action="javascript:sendMessage();" name="contact_form">
+          <fieldset>
+            <legend class="scroll-fade-in">
+              <p>
+                <span class="dead">Copy my email: </span>
+                <span class="muted copy interactable">{my_email}</span>
+                <br />
+                or send me a message:
+              </p>
+            </legend>
+
+            <div class="form-row scroll-fade-in">
+              <label for="name" class="muted"
+                >Name
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder=""
+                  required
+                />
+              </label>
+
+              <label for="email" class="muted"
+                >Email
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder=""
+                  required
+                />
+              </label>
+            </div>
+
+            <label for="message" class="muted scroll-fade-in"
+              >Message
+              <textarea id="message" name="message" placeholder="" required
+              ></textarea>
+            </label>
+          </fieldset>
+          <button type="submit" class="interactable scroll-fade-in">
+            Send Message <i class="nf nf-oct-chevron_right"></i>
+          </button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
+
+  <!-- <script>
+
+      /*==================== SEND MESSAGE ====================*/
+
+      const messageAlert = (type) => {
+        if (touchDevice) {
+          document.querySelector('.mobile-success span')
+            .innerHTML = type
+
+          tl = gsap.timeline({defaults: {ease: 'power2.out'}})
+          tl
+            .to('main', {
+              filter: 'blur(10px)'
+            })
+            .to('.mobile-success', {
+              display: 'revert',
+              opacity: 1,
+            }, '<')
+            .to('.mobile-success div', {
+              y: 0
+            }, '<0.1')
+            .to('.mobile-success', {
+              delay: 1,
+              opacity: 0,
+              display: 'none'
+            })
+            .to('.mobile-success div', {
+              y: '100%'
+            }, '<0.1')
+            .to('main', {
+              filter: 'blur(0px)'
+            }, '<')
+
+          return
+        }
+        trailer.dataset.type = type;
+        setTimeout(() => {
+          trailer.dataset.type = "";
+          big = false;
+        }, 1500);
+      }
+
+      const sendMessage = () => {
+        big = true;
+        trailer.dataset.type = "loading";
+
+        scaleTrailer()
+
+        const url = {{ url_for("send_message")|tojson }}
+        form = document.forms.contact_form
+
+        form_data = {
+          "name": form.elements.name.value,
+          "email": form.elements.email.value,
+          "message": form.elements.message.value,
+        }
+
+        fetch(url, {
+            "method": "POST",
+            "headers": {"Content-Type": "application/json"},
+            "body": JSON.stringify(form_data),
+        }).then((response) => {
+          if (response.status == 200) {
+            messageAlert('sent')
+            return
+          }
+          messageAlert('error')
+        })
+        .catch((error) => {
+          messageAlert('error')
+        });
+
+        form.reset()
+      }
+  </script> -->
+</main>
+
+<style></style>
